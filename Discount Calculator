@@ -1,0 +1,25 @@
+#include <stdio.h>
+int main(void) {
+	
+	float amount, amount_after, discount;
+	
+	printf("Enter Amount in PKR: ");
+	scanf("%f", &amount);
+	
+	if (amount < 0) {
+		printf("Invalid amount!\n");
+		return 0;
+	} else if (amount < 1000) {
+		discount = 0;
+	} else if (amount >= 1000 && amount <= 2000) {
+		discount = 0.05;
+	} else {
+		discount = 0.1;
+	}
+	
+	amount_after = amount*(1-discount);
+	printf("This is your discounted price: %.2f\n", amount_after);
+	printf("You have saved: %.2f\n", amount-amount_after);
+	
+	return 0;
+}
