@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <math.h>
+int main(void) {
+	
+	int borrow, n,k,w, total=0;
+	if (1 <= k && w <= 1000 && n>=0 && n<=pow(10,9)) {
+
+		scanf("%d %d %d", &k, &n, &w);
+		for (int i=1; i<=w;i++) {
+			total += i*k;
+		}
+		borrow = n - total;
+		if (borrow <0 ) {
+			printf("%d", borrow*-1);
+		}
+		else {
+			printf("%d", 0);
+		}
+	}
+	return 0;
+}
