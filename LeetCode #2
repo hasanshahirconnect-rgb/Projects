@@ -1,0 +1,59 @@
+#include <stdlib.h>
+//BEFORE STARTING THIS, REMEMBER THAT WE ACCESS NODES THROUG POINTERS ONLY
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
+
+    struct ListNode* dummyHead = malloc(sizeof(struct ListNode));
+    //this creates a dummy node that is accessed by the pointer dummyHead.
+    //and dummyHead can now be used to point to the dummy node created.
+    //so if we wanted to change val of this dummynode we would do dummyHead->val = smth.
+    
+    dummyHead->next = NULL;
+    //dummyHead->next = NULL assigns the dummynodes nexpointer to NULL.
+    
+    struct ListNode* current = dummyHead;
+    //current now points to the same node that dummyHead points to, in this case the dummynode.
+    int carry = 0;
+
+    // WILL ONLY START IF L1 L2 OR CARRY HAVE A VALUE
+    while (l1 != NULL || l2 != NULL || carry != 0) {
+        int val1 = 0;
+        int val2 = 0;
+
+        // IN THIS VAL1 GETS THE VALUE OF THE NODE TO WHICH L1 WAS POINTING TO
+        if (l1 != NULL) {
+            val1 = l1->val;
+            //NOW WE GET THE NEXTPOINTER OF THE NODE TO WHICH L1 WAS POINTING TO
+            l1 = l1->next;  // SINCE L1 NOW HAS THAT VALUE THE ORIGINAL VALUE OF L1 IS GONE NOW
+        }
+
+        // SAME FOR L2
+        if (l2 != NULL) {
+            val2 = l2->val;
+            l2 = l2->next; 
+        }
+        //NOW WE ADD AND CHECK FOR CARRY CUZ IF 5+5 = 10 THEN ??
+        int sum = val1 + val2 + carry;
+        int digit = sum % 10;
+        carry = sum / 10;
+
+        // WE CREATE NEW NODE
+        struct ListNode* newNode = malloc(sizeof(struct ListNode));
+        newNode->val = digit;
+        newNode->next = NULL;
+
+        // CURRENT WAS POINTING TO THE SAME NODE THAT DUMMYHEAD WAS POINTING TO
+        // CURRENT KEEPS CHANGING BUT DUMMYHEAD WONT SINCE ITS OG
+        // since current is pointing to a node, it changes that nodes nextpointer to point to the new node.
+        current->next = newNode;
+        // newnode which was a pointer is now copy pasted in current pointer.
+        current = newNode;
+    }
+
+    // now we just return the pointer as the function asked for a pointer sooo
+    // here result is a pointer so it stores nextpointer of the dummyhead.
+    struct ListNode* result = dummyHead->next;
+    // since it was useless we just remove it
+    free(dummyHead);
+
+    return result;
+}
