@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* addBinary(char* a, char* b) {
+    int lenA = strlen(a);
+    int lenB = strlen(b);
+
+    int i = lenA - 1;
+    int j = lenB - 1;
+    int maxLen = (lenA > lenB ? lenA : lenB);
+
+    char* result = (char*)malloc(maxLen + 3); 
+    int k = maxLen + 1;  
+    result[k--] = '\0';  
+
+    int carry = 0;
+
+    while (i >= 0 || j >= 0 || carry) {
+        char bitA = (i >= 0) ? a[i--] : '0';
+        char bitB = (j >= 0) ? b[j--] : '0';
+
+        int sum = (bitA - '0') + (bitB - '0') + carry;
+
+        switch (sum) {
+            case 0:
+                result[k--] = '0';
+                carry = 0;
+                break;
+            case 1:
+                result[k--] = '1';
+                carry = 0;
+                break;
+            case 2:
+                result[k--] = '0';
+                carry = 1;
+                break;
+            case 3:
+                result[k--] = '1';
+                carry = 1;
+                break;
+        }
+    }
+
+    return result + k + 1;
+}
